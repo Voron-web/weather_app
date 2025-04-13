@@ -85,11 +85,32 @@ h6 {
   font-size: inheri;
 }
 
+* {
+  /* border: 1px solid red; */
+}
+
 body {
-  font-family: "Inter"
+  height: 100%;
+  width: 100%;
+  font-family: "Inter";
+  color: #fff;
+
+}
+
+#root {
+  overflow: auto;
 }
 
 .block {
-  background: #00000050;
+  padding: 20px;
+  background: #00000030;
   border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.content {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(30px, 1fr));
+  gap: 20px;
 }

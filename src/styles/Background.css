@@ -1,0 +1,50 @@
+.wrapper {
+    position: fixed;
+    z-index: -1;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+}
+
+.wrapper.flash {
+    animation: darkFlashBg 2s ease-in-out;
+}
+
+.dark_flash {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.dark_flash.active {
+    animation: darkFlash 2s ease-in-out;
+}
+
+@keyframes darkFlash {
+    from {
+        backdrop-filter: blur(0px);
+    }
+
+    50% {
+        backdrop-filter: blur(100px);
+    }
+
+    to {
+        backdrop-filter: blur(0px);
+    }
+}
+
+@keyframes darkFlashBg {
+    from {
+        filter: brightness(100%);
+    }
+
+    50% {
+        filter: brightness(0%);
+    }
+
+    to {
+        filter: brightness(100%);
+    }
+}

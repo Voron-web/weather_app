@@ -1,0 +1,18 @@
+.preloader {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #ffffff00 40%, #ffffff 90%);
+    mask-image: radial-gradient(circle, transparent 0%, transparent 49%, black 50%, black 60%, transparent 61%, transparent 70%);
+    animation: rotateRing 2s linear infinite;
+}
+
+@keyframes rotateRing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

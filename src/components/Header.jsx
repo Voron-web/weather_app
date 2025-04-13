@@ -1,22 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "../styles/Header.module.css";
 import MainMenu from "./MainMenu";
 import SearchCity from "./SearchCity";
-import getCityByIp from "../services/fetchIp";
 
-const Header = () => {
-	const [citySetting, setCitySetting] = useState({ name: "", lat: "", lon: "" });
+const Header = ({ setCityData, cityName }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	useEffect(() => {
-		getCityByIp().then((data) => {
-			if (data) {
-				setCitySetting(data);
-			} else {
-				setCitySetting({ name: "New York", lat: 53.07, lon: -0.14 });
-			}
-		});
-	}, []);
 
 	return (
 		<header className={classes.header + " block"}>
@@ -55,9 +43,9 @@ const Header = () => {
 				<MainMenu />
 			</div>
 			<div className={classes.city} onClick={() => setIsModalOpen(true)}>
-				{citySetting.name}
+				{cityName}
 			</div>
-			{isModalOpen ? <SearchCity changeCity={setCitySetting} modalOpen={setIsModalOpen} /> : null}
+			{isModalOpen ? <SearchCity changeCity={setCityData} modalOpen={setIsModalOpen} /> : null}
 		</header>
 	);
 };

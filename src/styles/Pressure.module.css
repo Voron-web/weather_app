@@ -1,0 +1,28 @@
+.pressure {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+
+}
+
+.pressure__title {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.pressure__value {
+    margin-top: 25px;
+    font-size: 94px;
+    font-weight: 400;
+    display: flex;
+    align-items: flex-start;
+}
+
+.pressure__value span {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.pressure__icon svg {
+    height: 30px;
+}

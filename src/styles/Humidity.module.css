@@ -1,0 +1,58 @@
+.humidity {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.humidity_air,
+.precipitation {
+    display: flex;
+    gap: 20px;
+
+}
+
+.humidity_air__title {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+
+.humidity_icon svg {
+    height: 30px;
+}
+
+.humidity_value {
+    margin-top: 10px;
+    font-size: 80px;
+    font-weight: 400;
+    color: #fff;
+    display: flex;
+    align-items: flex-start;
+}
+
+.humidity_value span {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: 300;
+    color: #fff;
+}
+
+.precipitation__value {
+    margin-top: 10px;
+    font-size: 64px;
+    font-weight: 300;
+    display: flex;
+    align-items: flex-start;
+}
+
+.precipitation__title {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.precipitation__value span {
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 300;
+}

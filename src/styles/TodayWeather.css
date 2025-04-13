@@ -1,0 +1,33 @@
+.current_weather {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 100px;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    text-shadow: 0 0 3px #000;
+}
+
+.current_condition {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.current_temp {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-size: 128px;
+    font-weight: 700;
+    display: flex;
+
+}
+
+.icon {
+    height: 100%;
+    filter: drop-shadow(0 0 2px #000);
+}
+
+.himidity_air {
+    display: flex;
+    gap: 10px;
+}

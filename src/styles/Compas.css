@@ -1,0 +1,67 @@
+.compas {
+    position: relative;
+    height: 100%;
+}
+
+.arrow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transform-origin: center center;
+    rotate: var(--startAngle);
+}
+
+.animation {
+    animation:
+        arrowTurn 5s linear both,
+        arrowCorrection 10s linear infinite 10s;
+}
+
+
+
+
+
+@keyframes arrowTurn {
+    0% {
+        rotate: var(--startAngle);
+    }
+
+    70% {
+        rotate: calc(var(--turnAngle) + 10deg);
+    }
+
+    80% {
+        rotate: calc(var(--turnAngle) - 8deg);
+    }
+
+    90% {
+        rotate: calc(var(--turnAngle) + 5deg);
+    }
+
+    100% {
+        rotate: var(--turnAngle);
+    }
+
+}
+
+@keyframes arrowCorrection {
+
+    0%,
+    40% {
+        rotate: var(--turnAngle);
+    }
+
+    45% {
+        rotate: calc(var(--turnAngle) + 5deg);
+    }
+
+    55% {
+        rotate: calc(var(--turnAngle) - 3deg);
+    }
+
+    60%,
+    100% {
+        rotate: var(--turnAngle);
+    }
+}
