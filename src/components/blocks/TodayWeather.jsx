@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/TodayWeather.css";
 import Preloader from "../services/Preloader";
-import weatherGroupMap from "../../services/weatherCode";
+import getWeatherIcon from "../../services/weatherCode";
+import { useWeather } from "../../context/WeatherProvider";
+import { useIsLoad } from "../../context/IsLoadProvider";
 
-const TodayWeather = ({ condition, currTemp, tempUnit = "C", isDay = 1, conditionCode = 1000, isLoad }) => {
+const TodayWeather = () => {
 	const [currentIcon, setCurrentIcon] = useState("");
 
+	const { weatherData } = useWeather();
+	const { isLoad } = useIsLoad();
+
+	// create Date object from epoch time
+	const currentDate = new Date(weatherData?.location?.localtime_epoch * 1000);
+
 	useEffect(() => {
-		const icon = weatherGroupMap[conditionCode][`${isDay ? "dayIcon" : "nightIcon"}`];
-		setCurrentIcon(icon);
-	}, [isDay, conditionCode]);
+		if (isLoad) {
+			setCurrentIcon(getWeatherIcon(weatherData?.current?.condition?.code, weatherData?.current?.is_day));
+		}
+	}, [weatherData]);
 	return (
 		<div className="current_weather">
 			<div>
 				<div className="current_condition">
 					{isLoad ? (
-						condition
+						weatherData?.current?.condition?.text
 					) : (
 						<div style={{ width: "30px" }}>
 							<Preloader />
@@ -24,19 +33,21 @@ const TodayWeather = ({ condition, currTemp, tempUnit = "C", isDay = 1, conditio
 				</div>
 				<div className="current_temp">
 					{isLoad ? (
-						Math.round(Number(currTemp))
+						Math.round(Number(weatherData?.current?.temp_c))
 					) : (
 						<div style={{ width: "100px" }}>
 							<Preloader />
 						</div>
 					)}
-					&deg;{tempUnit}
+					&deg;C
+				</div>
+				<div className="date_now">
+					{isLoad ? <span>{currentDate.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</span> : ""}
 				</div>
 			</div>
 			{isLoad ? (
 				<svg className="icon">
-					{/* <use xlinkHref={`./images/icon_sprite.svg#${currentIcon}`} /> */}
-					<use xlinkHref={`./images/icon_sprite.svg#partly_cloudy`} />
+					<use xlinkHref={`./images/icon_sprite.svg#${currentIcon}`} />
 				</svg>
 			) : (
 				<div style={{ width: "150px" }}>

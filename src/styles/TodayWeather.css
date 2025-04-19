@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 100px;
+    padding: 0px 100px;
     grid-column-start: 1;
     grid-column-end: 5;
     text-shadow: 0 0 3px #000;
@@ -14,12 +14,10 @@
 }
 
 .current_temp {
-    margin-top: 50px;
-    margin-bottom: 30px;
+    margin-top: 20px;
     font-size: 128px;
     font-weight: 700;
     display: flex;
-
 }
 
 .icon {
@@ -30,4 +28,10 @@
 .himidity_air {
     display: flex;
     gap: 10px;
+}
+
+.date_now {
+    font-size: 20px;
+    margin: 10px 0;
+    font-weight: 300;
 }

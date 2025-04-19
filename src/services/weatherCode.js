@@ -59,4 +59,8 @@ const weatherGroupMap = {
 	1282: { group: "thunder", dayIcon: "thunder", nightIcon: "thunder" },
 };
 
-export default weatherGroupMap;
+function getWeatherIcon(code, isDay) {
+	return weatherGroupMap[code][`${isDay ? "dayIcon" : "nightIcon"}`];
+}
+
+export default getWeatherIcon;

@@ -1,4 +1,4 @@
-export async function getCurrentWeather(lat, lon) {
+export async function getWeatherData(lat, lon) {
 	const url = `http://localhost:5000/current?lat=${lat}&lon=${lon}`;
 	try {
 		const response = await fetch(url);

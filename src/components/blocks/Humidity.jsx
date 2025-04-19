@@ -2,8 +2,13 @@ import React from "react";
 import classes from "../../styles/Humidity.module.css";
 import BaseBlock from "./BaseBlock";
 import Preloader from "../services/Preloader";
+import { useWeather } from "../../context/WeatherProvider";
+import { useIsLoad } from "../../context/IsLoadProvider";
 
-const Humidity = ({ humidityAir = "--", precipitation = "--", isLoad }) => {
+const Humidity = () => {
+	const { weatherData } = useWeather();
+	const { isLoad } = useIsLoad();
+
 	return (
 		<BaseBlock title="Precipitation">
 			<div className={classes.humidity}>
@@ -30,7 +35,7 @@ const Humidity = ({ humidityAir = "--", precipitation = "--", isLoad }) => {
 						<p className={classes.humidity_air__title}>Air humidity</p>
 						{isLoad ? (
 							<div className={classes.humidity_value}>
-								{humidityAir}
+								{weatherData?.current?.humidity}
 								<span>%</span>
 							</div>
 						) : (
@@ -63,7 +68,7 @@ const Humidity = ({ humidityAir = "--", precipitation = "--", isLoad }) => {
 						<p className={classes.precipitation__title}>Precipitation</p>
 						{isLoad ? (
 							<div className={classes.precipitation__value}>
-								{precipitation}
+								{weatherData?.current?.precip_mm}
 								<span>mm</span>
 							</div>
 						) : (

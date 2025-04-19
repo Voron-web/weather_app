@@ -2,8 +2,12 @@ import React from "react";
 import classes from "../../styles/Pressure.module.css";
 import BaseBlock from "./BaseBlock";
 import Preloader from "../services/Preloader";
+import { useWeather } from "../../context/WeatherProvider";
+import { useIsLoad } from "../../context/IsLoadProvider";
 
-const Pressure = ({ pressure, isLoad }) => {
+const Pressure = () => {
+	const { weatherData } = useWeather();
+	const { isLoad } = useIsLoad();
 	return (
 		<BaseBlock title="Pressure">
 			<div className={classes.pressure}>
@@ -35,7 +39,7 @@ const Pressure = ({ pressure, isLoad }) => {
 					<p className={classes.pressure__title}>Atmospheric pressure</p>
 					{isLoad ? (
 						<div className={classes.pressure__value}>
-							{pressure}
+							{weatherData?.current?.pressure_in}
 							<span>mmHg</span>
 						</div>
 					) : (

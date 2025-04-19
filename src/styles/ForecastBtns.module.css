@@ -1,0 +1,64 @@
+.btn_line {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.slider__wrapper {
+    margin: 0 20px;
+    overflow: hidden;
+    /* width: 100%; */
+}
+
+.btn {
+    flex: 0 0 50px;
+    /* height: 50px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    opacity: 0.6;
+    filter: grayscale(100%);
+    cursor: pointer;
+
+    & .btn__wrapper {
+        transform-origin: center bottom;
+        transform: scale(0.7);
+    }
+
+    &:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+        transition: opacity 0.3s ease-out;
+    }
+}
+
+
+.btn__active {
+    filter: grayscale(0%);
+    opacity: 1;
+
+    & .btn__wrapper {
+        transform: scale(1);
+    }
+}
+
+.btn__wrapper {
+    /* height: 100%;
+    width: 100%; */
+    transition: transform 0.2s ease-in-out;
+    text-align: center;
+}
+
+.btn__icon {
+    width: 100%;
+    height: 50px;
+}
+
+.preloader {
+    width: 70px;
+}

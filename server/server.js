@@ -30,7 +30,7 @@ server.get("/search", async (req, res) => {
 			},
 		});
 		if (!response.ok) {
-			const errorText = await response.text(); // Получаем текст ошибки
+			const errorText = await response.text(); // Get error text
 			throw new Error(`API error: ${response.status} - ${errorText}`);
 		}
 		const data = await response.json();
@@ -51,17 +51,18 @@ server.get("/current", async (req, res) => {
 	if (!lat || !lon) {
 		return res.status(400).json({ error: "Query is required" });
 	}
+
 	try {
-		const response = await fetch(`${API_weather_url}/current.json?key=${API_weather_key}&q=${lat},${lon}`, {
+		const response = await fetch(`${API_weather_url}/forecast.json?key=${API_weather_key}&q=${lat},${lon}&days=7`, {
 			method: "GET",
 		});
 		if (!response.ok) {
-			const errorText = await response.text(); // Получаем текст ошибки
+			const errorText = await response.text(); // Get error text
 			throw new Error(`API error: ${response.status} - ${errorText}`);
 		}
 		const data = await response.json();
-		const responseData = await data.current;
-		res.json(responseData);
+		// const responseData = await data.current;
+		res.json(data);
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ error: "Error weather API request" });

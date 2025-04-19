@@ -2,8 +2,12 @@ import React from "react";
 import BaseBlock from "./BaseBlock";
 import classes from "../../styles/Wind.module.css";
 import Compas from "../services/Compas";
+import { useWeather } from "../../context/WeatherProvider";
+import { useIsLoad } from "../../context/IsLoadProvider";
 
-const Wind = ({ windSpeed, windGusts, windDegree = 0, windDir, windSpeedUnit }) => {
+const Wind = () => {
+	const { weatherData } = useWeather();
+	const { isLoad } = useIsLoad();
 	return (
 		<BaseBlock title="Wind Information">
 			<div className={classes.wind}>
@@ -52,7 +56,7 @@ const Wind = ({ windSpeed, windGusts, windDegree = 0, windDir, windSpeedUnit }) 
 					<div>
 						<div className={classes.wind_speed_title}>Wind speed</div>
 						<div className={classes.wind_speed_value}>
-							{windSpeed} <span>{windSpeedUnit}</span>
+							{weatherData?.current?.wind_kph} <span>km/h</span>
 						</div>
 					</div>
 				</div>
@@ -69,15 +73,15 @@ const Wind = ({ windSpeed, windGusts, windDegree = 0, windDir, windSpeedUnit }) 
 					<div>
 						<div className={classes.wind_gusts_title}>Wind gusts</div>
 						<div className={classes.wind_gusts_value}>
-							{windGusts} <span>{windSpeedUnit}</span>
+							{weatherData?.current?.gust_kph} <span>km/h</span>
 						</div>
 					</div>
 				</div>
 				<div className={classes.wind_degree}>
-					<Compas rotateDegree={windDegree} />
+					<Compas rotateDegree={weatherData?.current?.wind_degree} />
 				</div>
 				<div className={classes.wind_dir}>
-					<span className="wind_dir_value">{windDir}</span>
+					<span className="wind_dir_value">{weatherData?.current?.wind_dir || 0}</span>
 				</div>
 			</div>
 		</BaseBlock>
