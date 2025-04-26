@@ -1,9 +1,9 @@
 import React from "react";
-import getWeatherIcon from "../../services/weatherCode";
 import classes from "../../styles/ForecastBtns.module.css";
 import Preloader from "../services/Preloader";
 import { useIsLoad } from "../../context/IsLoadProvider";
 import { useWeather } from "../../context/WeatherProvider";
+import IconWeather from "./IconWeather";
 
 const ForecastBtns = ({ currentBtn, changeCurrentBtn }) => {
 	const { isLoad } = useIsLoad();
@@ -26,9 +26,9 @@ const ForecastBtns = ({ currentBtn, changeCurrentBtn }) => {
 								className={index === currentBtn ? `${classes.btn} ${classes.btn__active}` : classes.btn}
 								onClick={() => changeCurrentBtn(index)}>
 								<div className={classes.btn__wrapper}>
-									<svg className={classes.btn__icon}>
-										<use xlinkHref={`./images/icon_sprite.svg#${getWeatherIcon(item.day.condition.code, 1)}`} />
-									</svg>
+									<div className={classes.btn__icon}>
+										<IconWeather code={item.day.condition.code} />
+									</div>
 									<p>{convertDate(item.date)}</p>
 								</div>
 							</div>
@@ -38,9 +38,7 @@ const ForecastBtns = ({ currentBtn, changeCurrentBtn }) => {
 					}
 				})
 			) : (
-				<div className={classes.preloader}>
-					<Preloader />
-				</div>
+				<Preloader width={70} />
 			)}
 		</div>
 	);

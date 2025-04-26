@@ -1,6 +1,7 @@
 export default async function serverRequest(text) {
+	const url = process.env.REACT_APP_API_URL;
 	try {
-		const response = await fetch(`http://localhost:5000/search?value=${text}`);
+		const response = await fetch(`${url}/search?value=${text}`);
 		if (!response.ok) {
 			throw new Error("Error request");
 		}

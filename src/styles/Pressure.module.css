@@ -2,17 +2,16 @@
     display: flex;
     align-items: flex-start;
     gap: 20px;
-
 }
 
 .pressure__title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 300;
 }
 
 .pressure__value {
     margin-top: 25px;
-    font-size: 80px;
+    font-size: 72px;
     font-weight: 400;
     display: flex;
     align-items: flex-start;
@@ -27,4 +26,29 @@
 
 .pressure__icon svg {
     height: 30px;
+}
+
+@media (max-width:1200px) {
+    .pressure {
+        gap: 10px;
+    }
+
+    .pressure__title {
+        font-size: 12px;
+    }
+
+    .pressure__icon svg {
+        height: 20px;
+    }
+
+    .pressure__value {
+        /* margin-top: 20px; */
+        font-size: 64px;
+    }
+}
+
+@media (max-width:640px) {
+    .pressure {
+        margin: 0 auto;
+    }
 }

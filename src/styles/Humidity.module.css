@@ -12,7 +12,7 @@
 }
 
 .humidity_air__title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 300;
 }
 
@@ -22,7 +22,7 @@
 
 .humidity_value {
     margin-top: 10px;
-    font-size: 70px;
+    font-size: 64px;
     font-weight: 400;
     color: #fff;
     display: flex;
@@ -31,8 +31,8 @@
 
 .humidity_value span {
     margin-left: 10px;
-    margin-top: 10px;
-    font-size: 30px;
+    margin-top: 5px;
+    font-size: 26px;
     font-weight: 300;
     color: #fff;
 }
@@ -46,12 +46,46 @@
 }
 
 .precipitation__title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 300;
 }
 
 .precipitation__value span {
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 300;
+}
+
+@media (max-width:1200px) {
+
+    .humidity_air__title,
+    .precipitation__title {
+        font-size: 12px;
+    }
+
+    .humidity_value {
+        font-size: 46px;
+    }
+
+    .humidity_value span {
+        font-size: 18px;
+        margin-left: 5px;
+    }
+
+    .humidity_icon svg {
+        height: 20px;
+    }
+
+    .humidity_air,
+    .precipitation {
+        gap: 10px;
+    }
+
+}
+
+@media (max-width:640px) {
+    .humidity {
+        flex-direction: row;
+        justify-content: space-around;
+    }
 }

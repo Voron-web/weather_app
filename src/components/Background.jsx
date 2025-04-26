@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import weatherGroupMap from "../services/weatherCode";
+import { weatherGroupMap } from "../services/weatherCode";
 import "../styles/Background.css";
+import { useWeather } from "../context/WeatherProvider";
 
-const Background = ({ isDay = true, weatherCode = 0 }) => {
+const Background = () => {
 	const [isFlashActive, setIsFlashActive] = useState(false);
-	// const staticImage = "url('http://localhost:5000/images/main.jpeg')";
 	const staticImage = "url('/images/main.jpeg')";
-	let [bg, setBg] = useState(staticImage);
+	const [bg, setBg] = useState(staticImage);
+	const { weatherData } = useWeather();
 
 	useEffect(() => {
-		function changeBg() {
-			if (weatherGroupMap[weatherCode]) {
-				setIsFlashActive(true);
-				setTimeout(() => {
-					const newBg = `url('http://localhost:5000/images/${isDay ? "day" : "night"}/${weatherGroupMap[weatherCode].group}.jpeg')`;
-					setBg(newBg);
-				}, 1000);
-				setTimeout(() => setIsFlashActive(false), 5000);
-			}
+		if (weatherGroupMap[weatherData?.current?.condition?.code]) {
+			setIsFlashActive(true);
+			setTimeout(() => {
+				const newBg = `url('/images/${weatherData?.current?.is_day ? "day" : "night"}/${
+					weatherGroupMap[weatherData?.current?.condition?.code].group
+				}.jpeg')`;
+				setBg(newBg);
+			}, 1000);
+			setTimeout(() => setIsFlashActive(false), 5000);
 		}
-		changeBg();
-	}, [weatherCode, isDay]);
+	}, [weatherData]);
 
 	return createPortal(
 		<div className={isFlashActive ? "wrapper flash" : "wrapper"} style={{ backgroundImage: bg, backgroundSize: "cover" }}>

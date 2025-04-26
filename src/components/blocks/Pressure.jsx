@@ -43,9 +43,7 @@ const Pressure = () => {
 							<span>mmHg</span>
 						</div>
 					) : (
-						<div style={{ width: "50px" }}>
-							<Preloader />
-						</div>
+						<Preloader width={120} />
 					)}
 				</div>
 			</div>

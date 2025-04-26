@@ -1,5 +1,9 @@
 export async function getWeatherData(lat, lon) {
-	const url = `http://localhost:5000/current?lat=${lat}&lon=${lon}`;
+	const urlApi = process.env.REACT_APP_API_URL;
+
+	// const url = `http://localhost:5000/current?lat=${lat}&lon=${lon}`;
+	const url = `${urlApi}/current?lat=${lat}&lon=${lon}`;
+
 	try {
 		const response = await fetch(url);
 		if (!response.ok) {

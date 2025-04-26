@@ -2,3 +2,26 @@
     grid-column-start: 1;
     grid-column-end: 4;
 }
+
+@media (max-width:1500px) {
+    .hourly {
+        height: 100%;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 3;
+    }
+}
+
+@media (max-width:960px) {
+    .hourly {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 4;
+    }
+}
+
+@media (max-width:640px) {
+    .hourly {
+        grid-column-end: auto;
+    }
+}

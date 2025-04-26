@@ -24,14 +24,17 @@
 @keyframes darkFlash {
     from {
         backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
     }
 
     50% {
         backdrop-filter: blur(100px);
+        -webkit-backdrop-filter: blur(100px);
     }
 
     to {
         backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
     }
 }
 

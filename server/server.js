@@ -8,7 +8,8 @@ import { fileURLToPath } from "url";
 dotenv.config();
 const server = express();
 
-server.use(cors({ origin: "http://localhost:3000" }));
+// server.use(cors({ origin: "http://localhost:3000" }));
+server.use(cors());
 
 const API_geo_url = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
 const API_geo_key = String(process.env.GEO_KEY);

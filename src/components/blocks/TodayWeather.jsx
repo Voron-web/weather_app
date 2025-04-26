@@ -1,44 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../../styles/TodayWeather.css";
 import Preloader from "../services/Preloader";
-import getWeatherIcon from "../../services/weatherCode";
 import { useWeather } from "../../context/WeatherProvider";
 import { useIsLoad } from "../../context/IsLoadProvider";
+import IconWeather from "../services/IconWeather";
 
 const TodayWeather = () => {
-	const [currentIcon, setCurrentIcon] = useState("");
-
 	const { weatherData } = useWeather();
 	const { isLoad } = useIsLoad();
 
 	// create Date object from epoch time
 	const currentDate = new Date(weatherData?.location?.localtime_epoch * 1000);
 
-	useEffect(() => {
-		if (isLoad) {
-			setCurrentIcon(getWeatherIcon(weatherData?.current?.condition?.code, weatherData?.current?.is_day));
-		}
-	}, [weatherData]);
 	return (
 		<div className="current_weather">
 			<div>
-				<div className="current_condition">
-					{isLoad ? (
-						weatherData?.current?.condition?.text
-					) : (
-						<div style={{ width: "30px" }}>
-							<Preloader />
-						</div>
-					)}
-				</div>
+				<div className="current_condition">{isLoad ? weatherData?.current?.condition?.text : <Preloader width={30} />}</div>
 				<div className="current_temp">
-					{isLoad ? (
-						Math.round(Number(weatherData?.current?.temp_c))
-					) : (
-						<div style={{ width: "100px" }}>
-							<Preloader />
-						</div>
-					)}
+					{isLoad ? Math.round(Number(weatherData?.current?.temp_c)) : <Preloader width={100} />}
 					&deg;C
 				</div>
 				<div className="date_now">
@@ -46,13 +25,11 @@ const TodayWeather = () => {
 				</div>
 			</div>
 			{isLoad ? (
-				<svg className="icon">
-					<use xlinkHref={`./images/icon_sprite.svg#${currentIcon}`} />
-				</svg>
-			) : (
-				<div style={{ width: "150px" }}>
-					<Preloader />
+				<div className="icon">
+					<IconWeather code={weatherData?.current?.condition?.code} isDay={weatherData?.current?.is_day} />
 				</div>
+			) : (
+				<Preloader width={150} />
 			)}
 		</div>
 	);

@@ -119,29 +119,33 @@ const Forecast = () => {
 	return (
 		<div className={classes.forecast}>
 			<BaseBlock title="Forecast for 3 days">
-				<ForecastBtns {...{ changeCurrentBtn, isLoad }} currentBtn={currentDay} />
-				<div className={classes.content}>
-					{contentData.map((item, index) => {
-						return (
-							<div className={classes.row} key={index}>
-								<div className={classes.title__row}>
-									<div className={classes.icon}>{item.icon}</div>
-									<div className={classes.title}>{item.title}</div>
-								</div>
-								<div className={classes.separator}></div>
-								{isLoad ? (
-									<div className={classes.value}>
-										{Math.round(weatherData?.forecast?.forecastday[currentDay]?.day[item.key])}
-										{item.unit}
+				<div className={classes.wrapper}>
+					<ForecastBtns {...{ changeCurrentBtn, isLoad }} currentBtn={currentDay} />
+					<div className={classes.content}>
+						{contentData.map((item, index) => {
+							return (item.key === "daily_chance_of_snow" && weatherData?.forecast?.forecastday[currentDay]?.day.mintemp_c >= 3) ||
+								(item.key === "daily_chance_of_rain" && weatherData?.forecast?.forecastday[currentDay]?.day.maxtemp_c <= -1) ? null : (
+								<div className={classes.row} key={index}>
+									<div className={classes.title__row}>
+										<div className={classes.icon}>{item.icon}</div>
+										<div className={classes.title}>{item.title}</div>
 									</div>
-								) : (
-									<div className={classes.preloader}>
+									<div className={classes.separator}></div>
+									{isLoad ? (
+										<div className={classes.value}>
+											{Math.round(weatherData?.forecast?.forecastday[currentDay]?.day[item.key])}
+											{item.unit}
+										</div>
+									) : (
 										<Preloader />
-									</div>
-								)}
-							</div>
-						);
-					})}
+									)}
+								</div>
+							);
+						})}
+					</div>
+					<a className={classes.api_link} href="https://www.weatherapi.com/" target="_blank" rel="noopener noreferrer" title="Free Weather API">
+						<img src="//cdn.weatherapi.com/v4/images/weatherapi_logo.png" alt="Weather data by WeatherAPI.com" border="0" />
+					</a>
 				</div>
 			</BaseBlock>
 		</div>

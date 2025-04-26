@@ -39,9 +39,7 @@ const Humidity = () => {
 								<span>%</span>
 							</div>
 						) : (
-							<div style={{ width: "70px" }}>
-								<Preloader />
-							</div>
+							<Preloader width="70" />
 						)}
 					</div>
 				</div>
@@ -72,9 +70,7 @@ const Humidity = () => {
 								<span>mm</span>
 							</div>
 						) : (
-							<div style={{ width: "50px" }}>
-								<Preloader />
-							</div>
+							<Preloader width="50" />
 						)}
 					</div>
 				</div>

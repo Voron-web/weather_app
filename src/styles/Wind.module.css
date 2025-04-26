@@ -19,7 +19,7 @@
 
 .wind_speed_title,
 .wind_gusts_title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 300;
 }
 
@@ -28,19 +28,21 @@
     margin-top: 10px;
     display: flex;
     align-items: flex-start;
-    font-size: 64px;
+    font-size: 58px;
 }
 
 .wind_speed_value span {
     margin-left: 10px;
     margin-top: 5px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 300;
 }
 
 .wind_gusts_value {
-    font-size: 30px;
+    font-size: 38px;
 }
+
+
 
 .wind_gusts_value span {
     margin-top: 2px;
@@ -49,7 +51,7 @@
 }
 
 .wind_degree {
-    height: 120px;
+    height: 100px;
 }
 
 .wind_degree svg {
@@ -57,7 +59,103 @@
 }
 
 .wind_dir {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     text-align: center;
+}
+
+@media(max-width:1200px) {
+    .wind {
+        gap: 15px;
+    }
+
+    .wind_speed_title,
+    .wind_gusts_title {
+        font-size: 12px;
+    }
+
+    .wind_speed,
+    .wind_gusts {
+        gap: 10px;
+    }
+
+    .wind_speed_value {
+        font-size: 46px;
+    }
+
+    .wind_speed_value span {
+        margin-left: 5px;
+        font-size: 12px;
+    }
+
+    .wind_gusts_value {
+        font-size: 28px;
+    }
+
+    .wind_gusts_value span {
+        font-size: 11px;
+    }
+
+    .wind_degree {
+        height: 80px;
+    }
+
+    .wind_dir {
+        font-size: 15px;
+    }
+
+
+
+}
+
+@media (max-width:960px) {
+    .wind {
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .wind_wrapper {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    .wind_dir {
+        display: none;
+    }
+
+    .wind_degree,
+    .wind_gusts {
+        justify-self: center;
+    }
+
+    .wind_gusts_value {
+        font-size: 46px;
+
+        & span {
+            font-size: 12px;
+        }
+    }
+
+}
+
+@media (max-width:640px) {
+    .wind_wrapper {
+        grid-column-start: auto;
+        grid-column-end: auto;
+    }
+}
+
+@media (max-width:540px) {
+    .wind {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: repeat(2, auto);
+        gap: 20px;
+        grid-auto-flow: column;
+    }
+
+    .wind_degree,
+    .wind_gusts {
+        justify-self: auto;
+    }
 }

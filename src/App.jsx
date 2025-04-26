@@ -16,7 +16,7 @@ import Forecast from "./components/blocks/Forecast";
 function App() {
 	const [citySetting, setCitySetting] = useState({ name: "", lat: "", lon: "" });
 	const { weatherData, setWeatherData } = useWeather();
-	const { isLoad, setIsLoad } = useIsLoad();
+	const { setIsLoad } = useIsLoad();
 
 	useEffect(() => {
 		getCityByIp().then((data) => {
@@ -27,7 +27,7 @@ function App() {
 			}
 		});
 	}, []);
-
+	/* eslint-disable react-hooks/exhaustive-deps */
 	useEffect(() => {
 		if (citySetting.lat !== "") {
 			setIsLoad(false);

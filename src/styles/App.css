@@ -85,9 +85,6 @@ h6 {
   font-size: inheri;
 }
 
-* {
-  /* border: 1px solid red; */
-}
 
 body {
   height: 100%;
@@ -99,18 +96,44 @@ body {
 
 #root {
   overflow: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 1 auto;
 }
 
 .block {
   padding: 20px;
   background: #00000030;
-  border-radius: 20px;
+  border-radius: 12px;
   backdrop-filter: blur(10px);
 }
 
 .content {
+  height: 100%;
   padding: 10px 10px 20px 10px;
   display: grid;
   grid-template-columns: repeat(4, minmax(30px, 1fr));
   gap: 20px;
+}
+
+@media(max-width:1500px) {
+  .content {
+    grid-template-columns: repeat(3, minmax(30px, 1fr));
+  }
+}
+
+@media(max-width:960px) {
+  .content {
+    grid-template-columns: repeat(2, minmax(30px, 1fr));
+  }
+}
+
+@media(max-width:640px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
 }

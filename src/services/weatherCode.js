@@ -1,4 +1,4 @@
-const weatherGroupMap = {
+export const weatherGroupMap = {
 	// ☀️ Sunny
 	1000: { group: "sunny", dayIcon: "sunny", nightIcon: "clear_moon" },
 
