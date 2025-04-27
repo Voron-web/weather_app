@@ -2,7 +2,9 @@ import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
 import dotenv from "dotenv";
+import https from "https";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 
 dotenv.config();
@@ -15,6 +17,10 @@ const API_geo_url = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
 const API_geo_key = String(process.env.GEO_KEY);
 const API_weather_url = "https://api.weatherapi.com/v1";
 const API_weather_key = String(process.env.WEATHER_KEY);
+const sslOptions = {
+	key: fs.readFileSync("/etc/letsencrypt/live/voron-vps.space/privkey.pem"),
+	cert: fs.readFileSync("/etc/letsencrypt/live/voron-vps.space/fullchain.pem"),
+};
 
 //Get cities info
 server.get("/search", async (req, res) => {
@@ -76,5 +82,9 @@ const __dirname = path.dirname(__filename);
 server.use("/images", express.static(path.join(__dirname, "../public/images")));
 console.log(__dirname);
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+const PORT = process.env.PORT || 443;
+// server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+
+https.createServer(sslOptions, server).listen(PORT, () => {
+	console.log(`✅ Server running on port ${PORT}`);
+});
