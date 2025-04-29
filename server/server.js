@@ -11,8 +11,8 @@ import getLocationByIp from "./getLocationByIP.js";
 dotenv.config();
 const server = express();
 
-server.use(cors({ origin: "https://goodweather.vercel.app/" }));
-// server.use(cors());
+// server.use(cors({ origin: "https://goodweather.vercel.app/" }));
+server.use(cors());
 
 const API_geo_url = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
 const API_geo_key = String(process.env.GEO_KEY);
@@ -93,6 +93,7 @@ server.use("/images", express.static(path.join(__dirname, "../public/images")));
 // const PORT = process.env.PORT || 5000;
 // server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
 
+const PORT = process.env.PORT || 443;
 https.createServer(sslOptions, server).listen(PORT, () => {
 	console.log(`✅ Server running on port ${PORT}`);
 });
