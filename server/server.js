@@ -96,4 +96,3 @@ server.use("/images", express.static(path.join(__dirname, "../public/images")));
 https.createServer(sslOptions, server).listen(PORT, () => {
 	console.log(`✅ Server running on port ${PORT}`);
 });
-// test;
