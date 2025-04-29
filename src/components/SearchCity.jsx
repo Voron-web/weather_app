@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import "../styles/SearchCity.css";
 import serverRequest from "../services/fetchSearch";
 
-const SearchCity = ({ changeCity, modalOpen }) => {
+const SearchCity = ({ refreshWeather, modalOpen }) => {
 	const isMounted = useRef(false);
 	const [newText, setNewText] = useState("");
 	const [finalText, setFinalText] = useState("");
@@ -44,8 +44,8 @@ const SearchCity = ({ changeCity, modalOpen }) => {
 		modalOpen(false);
 	}
 
-	function selectNewCity(data) {
-		changeCity(data);
+	function selectNewCity(lat, lon) {
+		refreshWeather(lat, lon);
 		closeWindow();
 	}
 
@@ -68,7 +68,7 @@ const SearchCity = ({ changeCity, modalOpen }) => {
 				<ul className="list">
 					{foundCityList.map((data, index) => {
 						return (
-							<li key={index} className="list_item" onClick={() => selectNewCity({ name: data.name, lat: data.lat, lon: data.lon })}>
+							<li key={index} className="list_item" onClick={() => selectNewCity(data.lat, data.lon)}>
 								{data.name}, {data.region}, {data.country}
 							</li>
 						);

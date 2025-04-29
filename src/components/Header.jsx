@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import classes from "../styles/Header.module.css";
 import MainMenu from "./MainMenu";
 import SearchCity from "./SearchCity";
+import { useWeather } from "../context/WeatherProvider";
+import { useIsLoad } from "../context/IsLoadProvider";
+import Preloader from "./services/Preloader";
 
-const Header = ({ setCityData, cityName }) => {
+const Header = ({ refreshWeather }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const { isLoad } = useIsLoad();
+	const { weatherData } = useWeather();
 
 	return (
 		<header className={classes.header + " block"}>
@@ -45,9 +50,9 @@ const Header = ({ setCityData, cityName }) => {
 							d="M256 17.108c-75.73 0-137.122 61.392-137.122 137.122.055 23.25 6.022 46.107 11.58 56.262L256 494.892l119.982-274.244h-.063c11.27-20.324 17.188-43.18 17.202-66.418C393.122 78.5 331.73 17.108 256 17.108zm0 68.56a68.56 68.56 0 0 1 68.56 68.562A68.56 68.56 0 0 1 256 222.79a68.56 68.56 0 0 1-68.56-68.56A68.56 68.56 0 0 1 256 85.67z"></path>
 					</g>
 				</svg>
-				{cityName}
+				{isLoad ? weatherData?.location?.name : <Preloader />}
 			</div>
-			{isModalOpen ? <SearchCity changeCity={setCityData} modalOpen={setIsModalOpen} /> : null}
+			{isModalOpen ? <SearchCity refreshWeather={refreshWeather} modalOpen={setIsModalOpen} /> : null}
 		</header>
 	);
 };

@@ -1,3 +1,5 @@
+// Don,t used now!!!!!!
+
 // This function makes a request to the API and defines the city
 // and its coordinates by the client's IP address
 export default async function getCityByIp() {

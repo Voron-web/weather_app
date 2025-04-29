@@ -18,7 +18,7 @@ const Hourly = () => {
 	const tomorrowHours = weatherData?.forecast?.forecastday[1]?.hour;
 
 	const hoursData = useMemo(() => {
-		const currentDate = new Date();
+		const currentDate = new Date(weatherData?.location?.localtime);
 		const currentHour = currentDate.getHours();
 		let todayHoursData = [];
 		if (todayHours) {

@@ -6,12 +6,13 @@ import https from "https";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
+import getLocationByIp from "./getLocationByIP.js";
 
 dotenv.config();
 const server = express();
 
-// server.use(cors({ origin: "http://localhost:3000" }));
-server.use(cors());
+server.use(cors({ origin: "https://goodweather.vercel.app/" }));
+// server.use(cors());
 
 const API_geo_url = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
 const API_geo_key = String(process.env.GEO_KEY);
@@ -53,14 +54,21 @@ server.get("/search", async (req, res) => {
 });
 
 //Get current weather
-server.get("/current", async (req, res) => {
+server.get("/getweather", getLocationByIp, async (req, res) => {
 	const { lat, lon } = req.query;
+	let currentLat;
+	let currentLon;
 	if (!lat || !lon) {
-		return res.status(400).json({ error: "Query is required" });
+		currentLat = req.lat;
+		currentLon = req.lon;
+		// return res.status(400).json({ error: "Query is required" });
+	} else {
+		currentLat = lat;
+		currentLon = lon;
 	}
 
 	try {
-		const response = await fetch(`${API_weather_url}/forecast.json?key=${API_weather_key}&q=${lat},${lon}&days=7`, {
+		const response = await fetch(`${API_weather_url}/forecast.json?key=${API_weather_key}&q=${currentLat},${currentLon}&days=7`, {
 			method: "GET",
 		});
 		if (!response.ok) {
@@ -80,9 +88,9 @@ server.get("/current", async (req, res) => {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 server.use("/images", express.static(path.join(__dirname, "../public/images")));
-console.log(__dirname);
+// console.log(__dirname);
 
-const PORT = process.env.PORT || 443;
+// const PORT = process.env.PORT || 5000;
 // server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
 
 https.createServer(sslOptions, server).listen(PORT, () => {
