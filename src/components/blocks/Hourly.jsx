@@ -30,7 +30,7 @@ const Hourly = () => {
 			}
 			return todayHoursData || [];
 		}
-	}, [todayHours, tomorrowHours]);
+	}, [todayHours, tomorrowHours, weatherData]);
 
 	return (
 		<div className={classes.hourly}>

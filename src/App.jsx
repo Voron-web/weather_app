@@ -22,8 +22,8 @@ function App() {
 	const location = useLocation();
 
 	useEffect(() => {
-		initGA(), [];
-	});
+		initGA();
+	}, []);
 	useEffect(() => {
 		logPageView(location.pathname + location.search);
 	}, [location]);

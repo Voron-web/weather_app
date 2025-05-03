@@ -4,8 +4,6 @@ import "./styles/index.css";
 import App from "./App";
 import { WeatherProvider } from "./context/WeatherProvider";
 import { IsLoadProvider } from "./context/IsLoadProvider";
-import { initGA, logPageView } from "./services/analitics";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	// <React.StrictMode>
