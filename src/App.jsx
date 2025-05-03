@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 import "./styles/App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useWeather } from "./context/WeatherProvider";
 import { useIsLoad } from "./context/IsLoadProvider";
 // import getCityByIp from "./services/fetchIp";
@@ -12,11 +12,21 @@ import Pressure from "./components/blocks/Pressure";
 import Wind from "./components/blocks/Wind";
 import Hourly from "./components/blocks/Hourly";
 import Forecast from "./components/blocks/Forecast";
+import { initGA, logPageView } from "./services/analitics";
+import { useLocation } from "react-router-dom";
 
 function App() {
 	// const [citySetting, setCitySetting] = useState({ name: "", lat: "", lon: "" });
 	const { weatherData, setWeatherData } = useWeather();
 	const { setIsLoad } = useIsLoad();
+	const location = useLocation();
+
+	useEffect(() => {
+		initGA(), [];
+	});
+	useEffect(() => {
+		logPageView(location.pathname + location.search);
+	}, [location]);
 
 	// useEffect(() => {
 	// 	getCityByIp().then((data) => {
