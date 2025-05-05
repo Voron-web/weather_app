@@ -14,6 +14,7 @@ import Hourly from "./components/blocks/Hourly";
 import Forecast from "./components/blocks/Forecast";
 import { initGA, logPageView } from "./services/analitics";
 import { useLocation } from "react-router-dom";
+import Seo from "./components/Seo";
 
 function App() {
 	// const [citySetting, setCitySetting] = useState({ name: "", lat: "", lon: "" });
@@ -56,6 +57,7 @@ function App() {
 
 	return (
 		<>
+			<Seo />
 			<Background weatherCode={weatherData?.current?.condition?.code || 0} />
 			<Header refreshWeather={refreshWeather} />
 			<main>
