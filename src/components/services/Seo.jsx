@@ -5,7 +5,7 @@ const Seo = ({
 	title = "Weather App — Live Forecast",
 	description = "Get accurate and up-to-date weather forecasts for any city around the world.",
 	url = "https://goodweather.vercel.app",
-	image = "https://goodweather.vercel.app/images/preview.jpg",
+	// image = "https://goodweather.vercel.app/images/preview.jpg",
 }) => {
 	return (
 		<Helmet>
@@ -16,7 +16,7 @@ const Seo = ({
 			<meta property="og:description" content={description} />
 			<meta property="og:type" content="website" />
 			<meta property="og:url" content={url} />
-			<meta property="og:image" content={image} />
+			{/* <meta property="og:image" content={image} /> */}
 			<link rel="canonical" href={url} />
 			<html lang="en" />
 		</Helmet>
