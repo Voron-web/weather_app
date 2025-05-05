@@ -14,7 +14,7 @@ import Hourly from "./components/blocks/Hourly";
 import Forecast from "./components/blocks/Forecast";
 import { initGA, logPageView } from "./services/analitics";
 import { useLocation } from "react-router-dom";
-import Seo from "./components/Seo";
+import Seo from "./components/services/Seo";
 
 function App() {
 	// const [citySetting, setCitySetting] = useState({ name: "", lat: "", lon: "" });
