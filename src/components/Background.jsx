@@ -12,14 +12,19 @@ const Background = () => {
 
 	useEffect(() => {
 		if (weatherGroupMap[weatherData?.current?.condition?.code]) {
-			setIsFlashActive(true);
-			setTimeout(() => {
-				const newBg = `url('/images/${weatherData?.current?.is_day ? "day" : "night"}/${
-					weatherGroupMap[weatherData?.current?.condition?.code].group
-				}.jpeg')`;
-				setBg(newBg);
-			}, 1000);
-			setTimeout(() => setIsFlashActive(false), 5000);
+			//preload new image for background
+			const bgImg = new Image();
+			bgImg.src = `/images/${weatherData?.current?.is_day ? "day" : "night"}/${weatherGroupMap[weatherData?.current?.condition?.code].group}.jpeg`;
+			bgImg.onload = () => {
+				setIsFlashActive(true);
+				setTimeout(() => {
+					const newBg = `url('/images/${weatherData?.current?.is_day ? "day" : "night"}/${
+						weatherGroupMap[weatherData?.current?.condition?.code].group
+					}.jpeg')`;
+					setBg(newBg);
+				}, 1000);
+				setTimeout(() => setIsFlashActive(false), 5000);
+			};
 		}
 	}, [weatherData]);
 
