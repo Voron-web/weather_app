@@ -8,6 +8,6 @@ RUN npm i
 
 COPY . .
 
-EXPOSE 443
+EXPOSE 3001
 
 CMD ["node", "server.js"]
