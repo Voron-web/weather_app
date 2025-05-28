@@ -20,7 +20,7 @@ const Background = () => {
 				setTimeout(() => {
 					const newBg = `url('/images/${weatherData?.current?.is_day ? "day" : "night"}/${
 						weatherGroupMap[weatherData?.current?.condition?.code].group
-					}.jpeg')`;
+					}.webp')`;
 					setBg(newBg);
 				}, 1000);
 				setTimeout(() => setIsFlashActive(false), 5000);
