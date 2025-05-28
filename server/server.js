@@ -2,9 +2,7 @@ import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
 import dotenv from "dotenv";
-import https from "https";
 import path from "path";
-import fs from "fs";
 import { fileURLToPath } from "url";
 import getLocationByIp from "./getLocationByIP.js";
 
@@ -13,20 +11,13 @@ const server = express();
 
 const env = process.env.NODE_ENV || "development";
 
-// server.use(cors({ origin: "https://goodweather.vercel.app" }));
-
-const API_geo_url = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
+const API_geo_url = "https://api.geoapify.com/v1/geocode/autocomplete";
 const API_geo_key = String(process.env.GEO_KEY);
 const API_weather_url = "https://api.weatherapi.com/v1";
 let API_weather_key = String(process.env.WEATHER_KEY);
-let sslOptions;
 let corsSetting;
 
 if (env == "production") {
-	sslOptions = {
-		key: fs.readFileSync("/etc/letsencrypt/live/voron-vps.space/privkey.pem"),
-		cert: fs.readFileSync("/etc/letsencrypt/live/voron-vps.space/fullchain.pem"),
-	};
 	API_weather_key = String(process.env.WEATHER_KEY);
 	corsSetting = { origin: "https://goodweather.vercel.app" };
 } else {
@@ -35,7 +26,11 @@ if (env == "production") {
 }
 
 server.use(cors(corsSetting));
+server.set("trust proxy", true);
 
+server.get("/", (req, res) => {
+	res.send("Welcome to Weather API server");
+});
 //Get cities info
 server.get("/search", async (req, res) => {
 	const { value } = req.query;
@@ -43,12 +38,8 @@ server.get("/search", async (req, res) => {
 		return res.status(400).json({ error: "Query is required" });
 	}
 	try {
-		const response = await fetch(`${API_geo_url}?limit=10&namePrefix=${value}`, {
+		const response = await fetch(`${API_geo_url}?apiKey=${API_geo_key}&lang=en&limit=10&text=${value}&type=city`, {
 			method: "GET",
-			headers: {
-				"x-rapidapi-key": API_geo_key,
-				"x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
-			},
 		});
 		if (!response.ok) {
 			const errorText = await response.text(); // Get error text
@@ -56,8 +47,14 @@ server.get("/search", async (req, res) => {
 		}
 		const data = await response.json();
 
-		const responseData = data.data.map((elem) => {
-			return { name: elem.city, country: elem.country, region: elem.region, lat: elem.latitude, lon: elem.longitude };
+		const responseData = data.features.map((elem) => {
+			return {
+				name: elem.properties.formatted,
+				// country: elem.properties.country,
+				// region: elem.properties.region,
+				lat: elem.properties.lat,
+				lon: elem.properties.lon,
+			};
 		});
 		res.json(responseData);
 	} catch (error) {
@@ -74,14 +71,13 @@ server.get("/getweather", getLocationByIp, async (req, res) => {
 	if (!lat || !lon) {
 		currentLat = req.lat;
 		currentLon = req.lon;
-		// return res.status(400).json({ error: "Query is required" });
 	} else {
 		currentLat = lat;
 		currentLon = lon;
 	}
 
 	try {
-		const response = await fetch(`${API_weather_url}/forecast.json?key=${API_weather_key}&q=${currentLat},${currentLon}&days=7`, {
+		const response = await fetch(`${API_weather_url}/forecast.json?key=${API_weather_key}&q=${currentLat},${currentLon}&days=7&lang=en`, {
 			method: "GET",
 		});
 		if (!response.ok) {
@@ -103,10 +99,8 @@ const __dirname = path.dirname(__filename);
 server.use("/images", express.static(path.join(__dirname, "../public/images")));
 
 if (env == "production") {
-	const PORT = process.env.PORT || 443;
-	https.createServer(sslOptions, server).listen(PORT, () => {
-		console.log(`✅ Server running on port ${PORT}`);
-	});
+	const PORT = process.env.PORT || 3001;
+	server.listen(PORT, "0.0.0.0", () => console.log(`✅ Server running on port ${PORT}`));
 } else {
 	const PORT = process.env.PORT || 5000;
 	server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));

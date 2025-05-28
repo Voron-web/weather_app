@@ -69,7 +69,7 @@ const SearchCity = ({ refreshWeather, modalOpen }) => {
 					{foundCityList.map((data, index) => {
 						return (
 							<li key={index} className="list_item" onClick={() => selectNewCity(data.lat, data.lon)}>
-								{data.name}, {data.region}, {data.country}
+								{data.name}
 							</li>
 						);
 					})}
