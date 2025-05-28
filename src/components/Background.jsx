@@ -6,7 +6,7 @@ import { useWeather } from "../context/WeatherProvider";
 
 const Background = () => {
 	const [isFlashActive, setIsFlashActive] = useState(false);
-	const staticImage = "url('/images/main.jpeg')";
+	const staticImage = "url('/images/main.webp')";
 	const [bg, setBg] = useState(staticImage);
 	const { weatherData } = useWeather();
 
@@ -14,7 +14,7 @@ const Background = () => {
 		if (weatherGroupMap[weatherData?.current?.condition?.code]) {
 			//preload new image for background
 			const bgImg = new Image();
-			bgImg.src = `/images/${weatherData?.current?.is_day ? "day" : "night"}/${weatherGroupMap[weatherData?.current?.condition?.code].group}.jpeg`;
+			bgImg.src = `/images/${weatherData?.current?.is_day ? "day" : "night"}/${weatherGroupMap[weatherData?.current?.condition?.code].group}.webp`;
 			bgImg.onload = () => {
 				setIsFlashActive(true);
 				setTimeout(() => {

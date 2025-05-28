@@ -11,7 +11,7 @@ const server = express();
 
 const env = process.env.NODE_ENV || "development";
 
-const API_geo_url = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities";
+const API_geo_url = "https://api.geoapify.com/v1/geocode/autocomplete";
 const API_geo_key = String(process.env.GEO_KEY);
 const API_weather_url = "https://api.weatherapi.com/v1";
 let API_weather_key = String(process.env.WEATHER_KEY);
@@ -38,12 +38,8 @@ server.get("/search", async (req, res) => {
 		return res.status(400).json({ error: "Query is required" });
 	}
 	try {
-		const response = await fetch(`${API_geo_url}?limit=10&namePrefix=${value}`, {
+		const response = await fetch(`${API_geo_url}?apiKey=${API_geo_key}&lang=en&limit=10&text=${value}&type=city`, {
 			method: "GET",
-			headers: {
-				"x-rapidapi-key": API_geo_key,
-				"x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
-			},
 		});
 		if (!response.ok) {
 			const errorText = await response.text(); // Get error text
@@ -51,8 +47,14 @@ server.get("/search", async (req, res) => {
 		}
 		const data = await response.json();
 
-		const responseData = data.data.map((elem) => {
-			return { name: elem.city, country: elem.country, region: elem.region, lat: elem.latitude, lon: elem.longitude };
+		const responseData = data.features.map((elem) => {
+			return {
+				name: elem.properties.formatted,
+				// country: elem.properties.country,
+				// region: elem.properties.region,
+				lat: elem.properties.lat,
+				lon: elem.properties.lon,
+			};
 		});
 		res.json(responseData);
 	} catch (error) {
@@ -75,7 +77,7 @@ server.get("/getweather", getLocationByIp, async (req, res) => {
 	}
 
 	try {
-		const response = await fetch(`${API_weather_url}/forecast.json?key=${API_weather_key}&q=${currentLat},${currentLon}&days=7`, {
+		const response = await fetch(`${API_weather_url}/forecast.json?key=${API_weather_key}&q=${currentLat},${currentLon}&days=7&lang=en`, {
 			method: "GET",
 		});
 		if (!response.ok) {
